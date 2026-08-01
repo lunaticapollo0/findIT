@@ -3,7 +3,7 @@
 
   const bubble = createBubbler();
   import { onMount } from 'svelte';
-
+  import { SvelteSet } from 'svelte/reactivity';
   let user = $state(null);
 
   function mockMicrosoftSignIn() {
@@ -149,14 +149,13 @@
   // ---------- browse state ----------
   let view = $state('active'); // 'active' | 'archives' | 'mine'
   let typeFilter = $state('All items'); // 'All items' | 'Lost' | 'Found'
-  let categoryFilters = $state(new Set());
+   let categoryFilters = $state(new SvelteSet());
   let search = $state('');
   let sortOrder = $state('newest'); // 'newest' | 'oldest'
 
   function toggleCategory(cat) {
     if (categoryFilters.has(cat)) categoryFilters.delete(cat);
     else categoryFilters.add(cat);
-    categoryFilters = categoryFilters;
   }
 
   let reunitedCount = $derived(items.filter(
